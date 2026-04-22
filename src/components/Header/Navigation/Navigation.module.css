@@ -10,6 +10,7 @@
 .logoLink {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 .techstore {
@@ -60,13 +61,17 @@
   color: #000000;
 }
 
-.iconButton {
+.icon_Button {
   background: none;
   border: none;
   padding: 0;
   margin: 0;
   cursor: pointer;
   display: inline-flex;
+}
+
+.cart_Badge {
+  
 }
 
 @media (max-width: 639px) {

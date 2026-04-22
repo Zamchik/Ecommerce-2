@@ -1,9 +1,9 @@
-import Home from "../pages/Home"
+import Container from "../pages/Container"
 
 const App = () => {
   return (
     <>
-      <Home />
+      <Container />
     </>
 
   )

@@ -1,10 +1,14 @@
 import styles from './Header.module.css'
 import Navigation from './Navigation/Navigation'
 
-const Header = ( { activeTab, onTabChange } ) => {
+const Header = ({ pageType, setPageType, cart }) => {
   return (
     <header className={styles.header}>
-        <Navigation activeTab={activeTab} onTabChange={onTabChange} />
+      <Navigation
+        pageType={pageType}
+        setPageType={setPageType}
+        cart={cart}
+      />
     </header>
   )
 }
