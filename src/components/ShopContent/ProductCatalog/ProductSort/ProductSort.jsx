@@ -1,16 +1,16 @@
 import styles from "./ProductSort.module.css";
-import products from "../../../../data/products";
 
-const ProductSort = () => {
-
-  const tvCount = products.filter(product => product.category === "tv").length;
-  
+const ProductSort = ({ totalCount, sortBy, setSortBy }) => {
   return (
     <>
-      <div className={styles.count}>{tvCount} products</div>
-      <select className={styles.select}>
-        <option value="name">Sort by Name</option>
-        <option value="price">Sort by Price</option>
+      <div className={styles.count}>{totalCount} products</div>
+      <select
+        className={styles.select}
+        value={sortBy}
+        onChange={(e) => setSortBy(e.target.value)}
+      >
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
       </select>
     </>
   );

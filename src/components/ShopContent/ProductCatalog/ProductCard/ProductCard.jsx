@@ -2,13 +2,14 @@ import { useState } from "react";
 import styles from "./ProductCard.module.css";
 
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, cart, setCart }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [quantity, setQuantity] = useState(0);
 
   const images = product.images;
   const totalImages = images.length;
+
+  const quantity = cart[product.id] || 0;
 
   const handlePrevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
@@ -20,8 +21,30 @@ const ProductCard = ({ product }) => {
 
   const toggleFavorite = () => setIsFavorite(!isFavorite);
 
-  const formatPrice = (price) =>
-    `$${price.toLocaleString("en-US")}`;
+  const formatPrice = (price) => `$${price.toLocaleString("en-US")}`;
+
+  const addToCart = () => {
+    setCart((prev) => ({ ...prev, [product.id]: 1 }));
+  };
+
+  const increaseQuantity = () => {
+    setCart((prev) => ({
+      ...prev,
+      [product.id]: prev[product.id] + 1,
+    }));
+  };
+
+  const decreaseQuantity = () => {
+    setCart((prev) => {
+      const newQty = prev[product.id] - 1;
+      if (newQty <= 0) {
+        const { [product.id]: _, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [product.id]: newQty };
+    });
+  };
+
 
   return (
     <div className={styles.product_card}>
@@ -71,22 +94,16 @@ const ProductCard = ({ product }) => {
       {/* Секция добавления в корзину */}
       <div className={styles.cart_section}>
         {quantity === 0 ? (
-          <button className={styles.add_to_cart_btn} onClick={() => setQuantity(1)}>
+          <button className={styles.add_to_cart_btn} onClick={addToCart}>
             Add to Cart
           </button>
         ) : (
           <div className={styles.cart_counter}>
-            <button
-              className={styles.counter_btn}
-              onClick={() => setQuantity((prev) => Math.max(prev - 1, 0))}
-            >
+            <button className={styles.counter_btn} onClick={decreaseQuantity}>
               −
             </button>
             <span className={styles.counter_value}>{quantity} in cart</span>
-            <button
-              className={styles.counter_btn}
-              onClick={() => setQuantity((prev) => prev + 1)}
-            >
+            <button className={styles.counter_btn} onClick={increaseQuantity}>
               +
             </button>
           </div>

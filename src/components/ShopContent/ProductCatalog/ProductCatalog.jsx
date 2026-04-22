@@ -1,18 +1,32 @@
 import ProductCard from "./ProductCard/ProductCard";
 import ProductSort from "./ProductSort/ProductSort";
 import styles from "./ProductCatalog.module.css";
-import products from "../../../data/products";
 
-const ProductCatalog = () => {
-  const tvProducts = products.filter((p) => p.category === "tv")
+const ProductCatalog = ({
+  products,
+  cart,
+  setCart,
+  sortBy,
+  setSortBy,
+  totalCount,
+}) => {
   return (
     <div className={styles.container_productCatalog}>
       <div className={styles.container_productSort}>
-        <ProductSort />
+        <ProductSort
+          totalCount={totalCount}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
       </div>
       <div className={styles.container_productCard}>
-        {tvProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            cart={cart}
+            setCart={setCart}
+          />
         ))}
       </div>
     </div>

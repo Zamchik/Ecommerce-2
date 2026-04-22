@@ -1,18 +1,6 @@
-import { useState } from 'react';
-import styles from './PriceRange.module.css';
+import styles from "./PriceRange.module.css";
 
-const PriceRange = () => {
-  const [minPrice, setMinPrice] = useState("0");
-  const [maxPrice, setMaxPrice] = useState("5000");
-  
-  const handlerMinChange = (event) => { 
-    setMinPrice(event.target.value);
-  };
-
-  const handlerMaxChange = (event) => {
-    setMaxPrice(event.target.value);
-  };
-
+const PriceRange = ({ minPrice, maxPrice, onMinChange, onMaxChange }) => {
   return (
     <div className={styles.container_priceRange}>
       <label className={styles.label_priceRange}>Price Range</label>
@@ -20,14 +8,16 @@ const PriceRange = () => {
         <input
           className={styles.min_PriceRange}
           value={minPrice}
-          onChange={handlerMinChange}
+          onChange={(e) => onMinChange(e.target.value)}
           type="number"
+          placeholder="Min"
         />
         <input
           className={styles.max_PriceRange}
           value={maxPrice}
-          onChange={handlerMaxChange}
+          onChange={(e) => onMaxChange(e.target.value)}
           type="number"
+          placeholder="Max"
         />
       </div>
     </div>
